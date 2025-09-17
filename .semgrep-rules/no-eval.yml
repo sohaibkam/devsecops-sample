@@ -1,0 +1,7 @@
+rules:
+  - id: no-eval
+    patterns:
+      - pattern: eval(...)
+    message: "Avoid eval() — security risk"
+    languages: [javascript,typescript]
+    severity: ERROR
