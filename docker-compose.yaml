@@ -1,0 +1,52 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: devsecops-mongo
+    networks:
+      - devnet
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DB:-notesdb}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-}
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet mongodb://127.0.0.1:27017/admin --eval 'db.adminCommand({ping:1})' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "27017:27017"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: devsecops-sample:fixed
+    container_name: devsecops-app
+    restart: on-failure
+    depends_on:
+      - mongo
+    env_file:
+      - .env    # local dev only; ignored in repo if in .gitignore
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=${PORT:-3000}
+      - MONGO_URI=${MONGO_URI}
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "/nodejs/bin/node", "-e", "const http=require('http');http.get('http://127.0.0.1:3000/health',res=>process.exit(res.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - devnet
+
+volumes:
+  mongo-data:
+
+networks:
+  devnet:
+    driver: bridge
