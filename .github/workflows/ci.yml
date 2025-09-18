@@ -42,6 +42,14 @@ jobs:
           # If workflow_dispatch provides `inputs.ref`, use it; otherwise fall back to the event ref.
           ref: ${{ github.event.inputs.ref || github.ref }}
 
+      - name: "Debug: show repo root"
+        run: |
+          echo "PWD: $(pwd)"
+          echo "Listing repo root:"
+          ls -la
+          echo "Show Dockerfile head"
+          sed -n '1,120p' Dockerfile || true
+
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -68,8 +76,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile
+          file: ./Dockerfile
           push: false
+          load: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
