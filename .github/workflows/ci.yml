@@ -73,6 +73,35 @@ jobs:
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      
+      - name: Debug Trivy action resolution (network & tag)
+        run: |
+          echo "== runner info =="
+          uname -a
+          echo "GITHUB_RUNNER_SCOPE=$GITHUB_RUNNER_SCOPE"
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo
+
+          echo "== Can reach GitHub API for release tag =="
+          curl -sS -I https://api.github.com/repos/aquasecurity/trivy-action/releases/tags/v0.33.1 || true
+          echo
+
+          echo "== Can fetch raw action file =="
+          curl -sS -I https://raw.githubusercontent.com/aquasecurity/trivy-action/v0.33.1/action.yml || true
+          echo
+
+          echo "== Can resolve releases list (for sanity) =="
+          curl -sS -I https://api.github.com/repos/aquasecurity/trivy-action/releases || true
+          echo
+
+          echo "== DNS resolution test for raw.githubusercontent.com =="
+          getent hosts raw.githubusercontent.com || nslookup raw.githubusercontent.com || true
+          echo
+
+          echo "== show effective environment (redact secrets) =="
+          env | sed -n '1,200p'
+
 
       - name: Trivy - filesystem scan (repository)
         id: trivy-fs
