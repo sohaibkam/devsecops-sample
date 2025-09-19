@@ -5,6 +5,7 @@ This repository contains a **Node.js/Express + MongoDB microservice** built to d
 ---
 
 ## 📂 Project Structure
+```
 .
 ├── Dockerfile
 ├── app
@@ -45,9 +46,7 @@ This repository contains a **Node.js/Express + MongoDB microservice** built to d
 ├── package.json
 ├── trivy-fs-report.json
 └── trivy-image-report.json
-
-
----
+```
 
 ## Features
 
@@ -67,7 +66,7 @@ This repository contains a **Node.js/Express + MongoDB microservice** built to d
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-org>/devsecops-sample.git
+git clone https://github.com/sohaibkam/devsecops-sample.git
 cd devsecops-sample
 ```
 ###2. Environment variables
