@@ -110,3 +110,22 @@ curl -X POST http://localhost:3000/api/notes \
 ```
 curl http://localhost:3000/api/notes
 ```
+
+### 5. How to Run Security Scans Locally
+
+## 🛠 Running Security Scans Locally
+Run Trivy against the source code:
+```bash
+trivy fs .
+```
+
+Run Trivy against the built image:
+```
+docker build -t devsecops-sample:local .
+trivy image devsecops-sample:local
+```
+
+Run Semgrep:
+```
+semgrep --config=p/ci .
+```
