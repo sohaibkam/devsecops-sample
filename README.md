@@ -62,6 +62,12 @@ This repository contains a **Node.js/Express + MongoDB microservice** built to d
 
 ---
 
+## Prerequisites
+- Docker (>= 20.x)
+- Docker Compose (v2 recommended)
+- Git
+- curl or HTTP client (for testing APIs)
+
 ##  Getting Started
 
 ### 1. Clone the repository
