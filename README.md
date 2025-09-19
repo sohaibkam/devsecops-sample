@@ -69,14 +69,14 @@ This repository contains a **Node.js/Express + MongoDB microservice** built to d
 git clone https://github.com/sohaibkam/devsecops-sample.git
 cd devsecops-sample
 ```
-###2. Environment variables
+### 2. Environment variables
 
-###Create a .env file (or export them inline):
+#### Create a .env file (or export them inline):
 ```
 PORT=3000
 MONGO_URI=mongodb://mongo:27017/notesdb
 ```
-###3. Local development with Docker Compose
+### 3. Local development with Docker Compose
 ```
 docker-compose up --build
 ```
@@ -86,15 +86,21 @@ This will start:
 app → Node.js service on port 3000
 mongo → MongoDB service on port 27017
 
-###4. Test endpoints
-# Health
-curl http://localhost:3000/health
+### 4. Test endpoints
 
-# Create a note
+#### Health
+```
+curl http://localhost:3000/health
+```
+
+#### Create a note
+```
 curl -X POST http://localhost:3000/api/notes \
   -H "Content-Type: application/json" \
   -d '{"text":"hello from devsecops"}'
+```
 
-# List notes
+#### List notes
+```
 curl http://localhost:3000/api/notes
-
+```
