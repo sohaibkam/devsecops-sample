@@ -2,6 +2,7 @@
 
 This repository contains a **Node.js/Express + MongoDB microservice** built to demonstrate **DevSecOps practices** for securing applications at build, deployment, and runtime stages.
 
+Project report is stored at this URL: [Project Report]([http://example.com/project-report](https://docs.google.com/document/d/1CwimQmfJCa3H7VWhkFi7qmswWSwhQRVlJVJvjGmMJeQ/edit?usp=sharing))
 ---
 
 ## 📂 Project Structure
